@@ -27,6 +27,17 @@ module.exports = {
     }
   },
 
+  async get(request, response) {
+    const { id } = request.body;
+
+    const user = await Usuario.findById(id);
+
+    if (!user)
+      return response.status(400).send({ error: "Usuário não encontrado." });
+
+    response.send({ user });
+  },
+
   // Fazer login
   async login(request, response) {
     // Recebe o usuário e a senha
@@ -46,5 +57,21 @@ module.exports = {
     const token = jwt.sign({ id: user.id }, authConfig.secret);
 
     return response.send({ user, token });
+  },
+
+  async redefinirSenha(request, response) {
+    const { id, senha } = request.body;
+
+    try {
+      const hash = await bcrypt.hash(senha, 10);
+      const res = await Usuario.findByIdAndUpdate(
+        id,
+        { senha: hash },
+        { new: true }
+      );
+      return response.send({ res });
+    } catch (err) {
+      return response.status(400).send({ error: "Falha em trocar a senha." });
+    }
   },
 };

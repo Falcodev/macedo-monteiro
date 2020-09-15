@@ -9,5 +9,7 @@ const authMiddleware = require("./middlewares/auth");
 
 routes.post("/register", CadastroUsuarioValidation, UsuarioController.create);
 routes.post("/login", LoginValidation, UsuarioController.login);
+routes.get("/user", UsuarioController.get);
+routes.post("/mudarSenha", authMiddleware, UsuarioController.redefinirSenha);
 
 module.exports = routes;
