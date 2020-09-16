@@ -5,6 +5,7 @@ const AtivosController = require("./controllers/AtivosController");
 const PendenciasController = require("./controllers/PendenciasController");
 const ChatController = require("./controllers/ChatController");
 const VoteController = require("./controllers/VoteController");
+const ContasReceberController = require("./controllers/ContasReceberController");
 
 const CadastroUsuarioValidation = require("./validations/Usuario/CadastroUsuarioValidation");
 const LoginValidation = require("./validations/Usuario/LoginValidation");
@@ -12,6 +13,7 @@ const MudarSenhaValidation = require("./validations/Usuario/MudarSenhaValidation
 const CadastroAtivoValidation = require("./validations/Ativos/CadastroAtivoValidation");
 const UpdateAtivoValidation = require("./validations/Ativos/UpdateAtivoValidation");
 const PendenciasValidation = require("./validations/Pendencias/PendenciasValidation");
+const ContasReceberValidation = require("./validations/Contas/ContasReceberValidation");
 
 const authMiddleware = require("./middlewares/auth");
 
@@ -50,12 +52,21 @@ routes.post(
   authMiddleware,
   PendenciasController.create
 );
-routes.put("/pendencias", authMiddleware, VoteController.vote);
 routes.get("/todos/pendencias", authMiddleware, PendenciasController.index);
 routes.get("/pendencias", authMiddleware, PendenciasController.get);
+routes.put("/pendencias", authMiddleware, VoteController.vote);
 
 // Chat
 routes.put("/chat", authMiddleware, ChatController.send);
 routes.get("/chat", authMiddleware, PendenciasController.get);
+
+// Contas a receber
+routes.post(
+  "/contas/receber",
+  ContasReceberValidation,
+  authMiddleware,
+  ContasReceberController.create
+);
+routes.get("/contas/receber", authMiddleware, ContasReceberController.index);
 
 module.exports = routes;
