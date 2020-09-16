@@ -2,11 +2,16 @@ const routes = require("express").Router();
 
 const UsuarioController = require("./controllers/UsuarioController");
 const AtivosController = require("./controllers/AtivosController");
+const PendenciasController = require("./controllers/PendenciasController");
+const ChatController = require("./controllers/ChatController");
+const VoteController = require("./controllers/VoteController");
 
-const CadastroUsuarioValidation = require("./validations/CadastroUsuarioValidation");
-const LoginValidation = require("./validations/LoginValidation");
-const MudarSenhaValidation = require("./validations/MudarSenhaValidation");
-const CadastroAtivoValidation = require("./validations/CadastroAtivoValidation");
+const CadastroUsuarioValidation = require("./validations/Usuario/CadastroUsuarioValidation");
+const LoginValidation = require("./validations/Usuario/LoginValidation");
+const MudarSenhaValidation = require("./validations/Usuario/MudarSenhaValidation");
+const CadastroAtivoValidation = require("./validations/Ativos/CadastroAtivoValidation");
+const UpdateAtivoValidation = require("./validations/Ativos/UpdateAtivoValidation");
+const PendenciasValidation = require("./validations/Pendencias/PendenciasValidation");
 
 const authMiddleware = require("./middlewares/auth");
 
@@ -28,6 +33,29 @@ routes.post(
   authMiddleware,
   AtivosController.create
 );
-routes.put("/ativos", authMiddleware, AtivosController.update);
+routes.put(
+  "/ativos",
+  UpdateAtivoValidation,
+  authMiddleware,
+  AtivosController.update
+);
+routes.get("/ativos", authMiddleware, AtivosController.get);
+routes.delete("/ativos", authMiddleware, AtivosController.delete);
+routes.get("/todos/ativos", authMiddleware, AtivosController.index);
+
+// Pendências
+routes.post(
+  "/pendencias",
+  PendenciasValidation,
+  authMiddleware,
+  PendenciasController.create
+);
+routes.put("/pendencias", authMiddleware, VoteController.vote);
+routes.get("/todos/pendencias", authMiddleware, PendenciasController.index);
+routes.get("/pendencias", authMiddleware, PendenciasController.get);
+
+// Chat
+routes.put("/chat", authMiddleware, ChatController.send);
+routes.get("/chat", authMiddleware, PendenciasController.get);
 
 module.exports = routes;

@@ -25,6 +25,14 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  representacao: {
+    type: Number,
+    required: true,
+  },
+  cotas: {
+    type: Number,
+    required: true,
+  },
 });
 
 UserSchema.plugin(autoIncrement.plugin, { model: "User", field: "codigo" });

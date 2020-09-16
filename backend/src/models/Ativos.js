@@ -3,10 +3,7 @@ const mongoose = require("../database");
 // Cria um schema de ativos
 const AtivosSchema = new mongoose.Schema({
   // Geral
-  apelido: {
-    type: String,
-    required: false,
-  },
+  apelido: String,
   endereco: {
     type: String,
     required: true,
@@ -15,86 +12,41 @@ const AtivosSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  cep: {
-    type: Number,
-    required: false,
-  },
+  cep: Number,
   municipio: {
     type: String,
     required: true,
   },
-  coordenadas: {
-    type: [Number],
-    required: false,
-  },
+  coordenadas: [Number],
 
   // Status
-  disponibilidade: {
-    type: String,
-    required: false,
-  },
-  titular: {
-    type: String,
-    required: false,
-  },
-  valor: {
-    type: Number,
-    required: false,
-  },
+  disponibilidade: String,
+  titular: String,
+  valor: Number,
 
   sku: {
     type: String,
     required: true,
   },
-  inscricao: {
-    type: String,
-    required: false,
-  },
+  inscricao: String,
   dataAquisicao: {
     type: Date,
     required: false,
   },
-  valorMatricula: {
-    type: Number,
-    required: false,
-  },
-  area: {
-    type: Number,
-    required: false,
-  },
+  valorMatricula: Number,
+  area: Number,
 
   // Avaliação
-  valorIPTU: {
-    type: Number,
-    required: false,
-  },
-  mercado: {
-    type: Number,
-    required: false,
-  },
+  valorIPTU: Number,
+  mercado: Number,
 
   // Proprietário
-  nomeMatricula: {
-    type: String,
-    required: false,
-  },
-  nomeIPTU: {
-    type: String,
-    required: false,
-  },
-  escritura: {
-    type: String,
-    required: false,
-  },
-  cartorioDeRegistro: {
-    type: String,
-    required: false,
-  },
+  nomeMatricula: String,
+  nomeIPTU: String,
+  escritura: String,
+  cartorioDeRegistro: String,
 
-  observacao: {
-    type: String,
-    required: false,
-  },
+  observacao: String,
 });
 
 module.exports = mongoose.model("Ativos", AtivosSchema);
