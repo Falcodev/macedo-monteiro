@@ -21,7 +21,6 @@ module.exports = {
 
       return response.send({ user });
     } catch (err) {
-      console.log(err);
       // Caso ocorra algum erro, retorna um erro
       return response.status(400).send({ error: "Erro no cadastro. " });
     }
@@ -30,11 +29,14 @@ module.exports = {
   async get(request, response) {
     const { id } = request.body;
 
+    // Tenta encontrar um usuário
     const user = await Usuario.findById(id);
 
+    // Se não encontrar, retorna um erro
     if (!user)
       return response.status(400).send({ error: "Usuário não encontrado." });
 
+    // Retorna o usuário
     response.send({ user });
   },
 
