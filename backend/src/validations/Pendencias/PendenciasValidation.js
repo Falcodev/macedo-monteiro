@@ -8,7 +8,7 @@ module.exports = celebrate({
     chat: Joi.object({
       mensagem: Joi.string().required(),
       autor: Joi.string().required(),
-      data: Joi.date(),
-    }),
+      data: Joi.date().required(),
+    }).required(),
   }),
 });

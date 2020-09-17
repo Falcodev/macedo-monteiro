@@ -13,13 +13,11 @@ const UserSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    lowercase: true,
     required: true,
   },
   senha: {
     type: String,
     required: true,
-    select: false,
   },
   codigo: {
     type: Number,
@@ -35,7 +33,7 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-UserSchema.plugin(autoIncrement.plugin, { model: "User", field: "codigo" });
+UserSchema.plugin(autoIncrement.plugin, { model: "Usuario", field: "codigo" });
 
 // Antes de criar um Usuário, a senha será encriptada
 UserSchema.pre("save", async function (next) {

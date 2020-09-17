@@ -13,7 +13,8 @@ const MudarSenhaValidation = require("./validations/Usuario/MudarSenhaValidation
 const CadastroAtivoValidation = require("./validations/Ativos/CadastroAtivoValidation");
 const UpdateAtivoValidation = require("./validations/Ativos/UpdateAtivoValidation");
 const PendenciasValidation = require("./validations/Pendencias/PendenciasValidation");
-const ContasReceberValidation = require("./validations/Contas/ContasReceberValidation");
+const CadastroContasReceberValidation = require("./validations/Contas/CadastroContasReceberValidation");
+const ConfirmarContasReceberValidation = require("./validations/Contas/ConfirmarContasReceberValidation");
 
 const authMiddleware = require("./middlewares/auth");
 
@@ -63,10 +64,16 @@ routes.get("/chat", authMiddleware, PendenciasController.get);
 // Contas a receber
 routes.post(
   "/contas/receber",
-  ContasReceberValidation,
+  CadastroContasReceberValidation,
   authMiddleware,
   ContasReceberController.create
 );
 routes.get("/contas/receber", authMiddleware, ContasReceberController.index);
+routes.put(
+  "/contas/receber",
+  ConfirmarContasReceberValidation,
+  authMiddleware,
+  ContasReceberController.complete
+);
 
 module.exports = routes;

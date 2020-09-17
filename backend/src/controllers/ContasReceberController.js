@@ -1,5 +1,7 @@
 const ContasReceber = require("../models/ContasReceber");
 
+const calcularJuros = require("../utils/calcularJuros");
+
 module.exports = {
   async create(request, response) {
     try {
@@ -21,5 +23,40 @@ module.exports = {
         .status(400)
         .send({ error: "Erro ao requisitar contas. " });
     }
+  },
+
+  async complete(request, response) {
+    const {
+      id,
+      dataVencimento,
+      dataRecebimento,
+      valor,
+      desconto,
+      juros,
+      multa,
+      situacao,
+    } = request.body;
+
+    let total;
+    total =
+      valor +
+      calcularJuros(dataVencimento, dataRecebimento, situacao, valor, juros) -
+      desconto +
+      valor * multa;
+
+    const res = await ContasReceber.findByIdAndUpdate(
+      id,
+      {
+        dataRecebimento,
+        desconto,
+        juros,
+        multa,
+        total,
+        situacao: "pago",
+      },
+      { new: true }
+    );
+
+    return response.send({ res });
   },
 };

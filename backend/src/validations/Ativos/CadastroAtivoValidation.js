@@ -11,7 +11,12 @@ module.exports = celebrate({
     coordenadas: Joi.array().items(Joi.number(), Joi.number()),
 
     // Status
-    disponibilidade: Joi.string(),
+    disponibilidade: Joi.string().valid(
+      "aluguel",
+      "venda",
+      "aluguel e venda",
+      "indisponivel"
+    ),
     titular: Joi.string(),
     valor: Joi.number(),
 

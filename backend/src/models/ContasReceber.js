@@ -21,11 +21,15 @@ const ContasReceberSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  dataRecebimento: Date,
-  juros: {
-    type: Number,
+  situacao: {
+    type: "String",
     required: true,
   },
+  dataRecebimento: Date,
+  juros: Number,
+  multa: Number,
+  desconto: Number,
+  total: Number,
   emissao: {
     type: Date,
     required: true,
@@ -43,6 +47,11 @@ const ContasReceberSchema = new mongoose.Schema({
 ContasReceberSchema.plugin(autoIncrement.plugin, {
   model: "ContasReceber",
   field: "codigo",
+});
+
+ContasReceberSchema.pre("save", async function (next) {
+  this.situacao = "pendente";
+  next();
 });
 
 module.exports = mongoose.model("ContasReceber", ContasReceberSchema);

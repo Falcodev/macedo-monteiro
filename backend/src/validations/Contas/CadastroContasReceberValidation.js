@@ -5,8 +5,6 @@ module.exports = celebrate({
     valor: Joi.number().required(),
     pagador: Joi.string().required(),
     dataVencimento: Joi.date().required(),
-    dataRecebimento: Joi.date(),
-    juros: Joi.number().required(),
     emissao: Joi.date().required(),
     cpf_cnpj: Joi.number().required(),
     condominio: Joi.number(),
