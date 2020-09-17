@@ -63,7 +63,6 @@ routes.put("/pendencias", authMiddleware, VoteController.vote);
 
 // Chat
 routes.put("/chat", authMiddleware, ChatController.send);
-routes.get("/chat", authMiddleware, PendenciasController.get);
 
 // Contas a receber
 routes.post(
@@ -79,7 +78,7 @@ routes.get(
   ContasReceberController.index
 );
 routes.put(
-  "/todos/contas/receber",
+  "/contas/receber",
   ConfirmarContasReceberValidation,
   authMiddleware,
   ContasReceberController.complete

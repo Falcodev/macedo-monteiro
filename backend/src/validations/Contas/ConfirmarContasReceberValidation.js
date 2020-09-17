@@ -9,6 +9,6 @@ module.exports = celebrate({
     juros: Joi.number().required(),
     desconto: Joi.number().required(),
     multa: Joi.number().required(),
-    situacao: Joi.string().required(),
+    situacao: Joi.string().valid("pendente", "em atraso").required(),
   }),
 });
