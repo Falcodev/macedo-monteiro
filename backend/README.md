@@ -1,12 +1,31 @@
 # Macedo Monteiro Backend :office:
 
+[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
+
 API da implementação do sistema da Macedo Monteiro.
+
+Essa API requer requer [Node.js](https://nodejs.org/) para funcionar.
+
+Instale as dependências e inicie o servidor.
+
+```
+$ yarn install
+$ yarn start
+```
 
 No presente momento, esta aplicação permite as seguintes operações nas rotas a seguir:
 
+- [Usuários](#usuário) :information_desk_person:
+- [Ativos](#ativos) :house:
+- [Pendências](#pendências) :clock3:
+- [Chat das Pendências](#chat-das-pendências) :speech_balloon:
+- [Contas a Receber](#contas-a-receber) :moneybag:
+- [Contas a Pagar](#contas-a-pagar) :dollar:
+- [Clientes](#clientes) :woman:
+
 ### :heavy_exclamation_mark: Parâmetros marcados com `*` são obrigatórios :heavy_exclamation_mark:
 
-## Usuário :information_desk_person:
+## Usuário
 
 ### Cadastro
 
@@ -90,6 +109,39 @@ No presente momento, esta aplicação permite as seguintes operações nas rotas
 }
 ```
 
+### Receber todos os usuários
+
+`GET /todos/user`
+
+#### Response
+
+```
+{
+  "res": [
+    {
+      "_id": "5f63783a1f151623106ec4c2",
+      "nome": "Teste1",
+      "email": "teste1@email.com",
+      "senha": "$2a$10$VGiTd40itlZXX6uoQ1aZAO6MUsSOePTfxaP6idReBxG7qSpXfAWIu",
+      "representacao": 10,
+      "cotas": 10000,
+      "codigo": 0,
+      "__v": 0
+    },
+    {
+      "_id": "5f6378921f151623106ec4c3",
+      "nome": "Teste2",
+      "email": "teste2@email.com",
+      "senha": "$2a$10$Ypv8xmxaPj4pb.QlFJRp1urR.I0w1HQPEGp3aIwDjiIn.MPJULWQy",
+      "representacao": 10,
+      "cotas": 10000,
+      "codigo": 1,
+      "__v": 0
+    }
+  ]
+}
+```
+
 ### Mudança de senha
 
 `PUT /user`
@@ -117,7 +169,7 @@ No presente momento, esta aplicação permite as seguintes operações nas rotas
 }
 ```
 
-## Ativos :house:
+## Ativos
 
 ### Cadastro
 
@@ -317,7 +369,7 @@ No presente momento, esta aplicação permite as seguintes operações nas rotas
 }
 ```
 
-## Pendências :clock3:
+## Pendências
 
 ### Cadastro
 
@@ -512,5 +564,470 @@ No presente momento, esta aplicação permite as seguintes operações nas rotas
     "situacao": "pendente",
     "__v": 0
   }
+}
+```
+
+## Chat das pendências
+
+### Enviar mensagem
+
+#### Request
+
+`PUT /chat`
+
+#### :warning: É necessário passar como parâmetro o header `authorization : "Bearer ${token_do_usuário}"`:warning:
+
+| Parâmetros | Descrição             | Tipo     |
+| ---------- | --------------------- | -------- |
+| id\*       | Id da pendência       | String   |
+| chat\*     | Mensagem da pendência | [Object] |
+
+#### \* Chat
+
+| Parâmetros | Descrição              | Tipo   |
+| ---------- | ---------------------- | ------ |
+| mensagem\* | Mensagem a ser passada | String |
+| autor\*    | Autor da mensagem      | String |
+| data\*     | Data da mensagem       | Date   |
+
+#### Response
+
+```
+{
+  "res": {
+    "_id": "5f63a64d4e26170e70380695",
+    "idPendencia": "5f63a64d4e26170e70380694",
+    "chat": [
+      {
+        "_id": "5f63a64d4e26170e70380696",
+        "mensagem": "Olá! Eu sou uma mensagem",
+        "autor": "Teste",
+        "data": "1999-06-02T00:00:00.000Z"
+      },
+      {
+        "_id": "5f63a6544e26170e70380697",
+        "mensagem": "Olá, eu sou outra mensagem!",
+        "autor": "Um outro autor",
+        "data": "1999-06-02T00:00:00.000Z"
+      }
+    ],
+    "__v": 0
+  }
+}
+```
+
+## Contas a receber
+
+### Cadastrar
+
+#### Request
+
+`POST /contas/receber`
+
+#### :warning: É necessário passar como parâmetro o header `authorization : "Bearer ${token_do_usuário}"`:warning:
+
+| Parâmetros       | Descrição           | Tipo   |
+| ---------------- | ------------------- | ------ |
+| valor\*          | Valor da conta      | Number |
+| pagador\*        | Nome do pagador     | String |
+| dataVencimento\* | Data de vencimento  | Date   |
+| emissao\*        | Data de emissao     | Date   |
+| cpf_cnpj\*       | CPF/CNPJ            | Number |
+| condominio       | Valor do condomínio | Number |
+| energia          | Valor da energia    | Number |
+| outros           | Outros valores      | Number |
+| unidade          | Unidade             | String |
+
+#### Response
+
+```
+{
+  "conta": {
+    "_id": "5f639f385560a64198fe0596",
+    "valor": 500,
+    "pagador": "João",
+    "dataVencimento": "1999-06-02T00:00:00.000Z",
+    "emissao": "1999-06-02T00:00:00.000Z",
+    "cpf_cnpj": 50721981,
+    "codigo": 1,
+    "situacao": "pendente",
+    "__v": 0
+  }
+}
+```
+
+### Receber conta
+
+#### Request
+
+`GET/contas/receber`
+
+#### :warning: É necessário passar como parâmetro o header `authorization : "Bearer ${token_do_usuário}"`:warning:
+
+| Parâmetros | Descrição   | Tipo   |
+| ---------- | ----------- | ------ |
+| id\*       | Id da conta | String |
+
+#### Response
+
+```
+{
+  "res": {
+    "_id": "5f639f385560a64198fe0596",
+    "valor": 500,
+    "pagador": "João",
+    "dataVencimento": "1999-06-02T00:00:00.000Z",
+    "emissao": "1999-06-02T00:00:00.000Z",
+    "cpf_cnpj": 50721981,
+    "codigo": 1,
+    "situacao": "pendente",
+    "__v": 0
+  }
+}
+```
+
+### Receber todas as contas
+
+#### Request
+
+`GET/todos/contas/receber`
+
+#### :warning: É necessário passar como parâmetro o header `authorization : "Bearer ${token_do_usuário}"`:warning:
+
+#### Response
+
+```
+{
+  "res": [
+    {
+      "_id": "5f637e6ca3f38d26643b9aa1",
+      "valor": 500,
+      "pagador": "João",
+      "dataVencimento": "1999-06-02T00:00:00.000Z",
+      "emissao": "1999-06-02T00:00:00.000Z",
+      "cpf_cnpj": 50721981,
+      "codigo": 0,
+      "__v": 0,
+      "dataRecebimento": "1999-06-12T00:00:00.000Z",
+      "desconto": 0,
+      "juros": 0.001627,
+      "multa": 0.1,
+      "total": 558.135,
+      "situacao": "pago"
+    },
+    {
+      "_id": "5f639f385560a64198fe0596",
+      "valor": 500,
+      "pagador": "João",
+      "dataVencimento": "1999-06-02T00:00:00.000Z",
+      "emissao": "1999-06-02T00:00:00.000Z",
+      "cpf_cnpj": 50721981,
+      "codigo": 1,
+      "situacao": "pendente",
+      "__v": 0
+    }
+  ]
+}
+```
+
+### Confirmar o recebimento
+
+`PUT /contas/receber`
+
+#### Request
+
+#### :warning: É necessário passar como parâmetro o header `authorization : "Bearer ${token_do_usuário}"`:warning:
+
+| Parâmetros        | Descrição             | Tipo                                  |
+| ----------------- | --------------------- | ------------------------------------- |
+| id\*              | Id da conta           | String                                |
+| valor\*           | Valor da conta        | Number                                |
+| dataVencimento\*  | Data de vencimento    | Date                                  |
+| dataRecebimento\* | Data de recebimento   | Date                                  |
+| juros\*           | Porcentagem dos juros | Number -> `(10% = 0.1)`               |
+| desconto\*        | Valor do desconto     | Number                                |
+| multa\*           | Porcentagem da multa  | Number -> `(10% = 0.1)`               |
+| situacao\*        | Situação da conta     | String -> `("pendente", "em aberto")` |
+
+#### Response
+
+```
+{
+  "res": {
+    "_id": "5f637e6ca3f38d26643b9aa1",
+    "valor": 500,
+    "pagador": "João",
+    "dataVencimento": "1999-06-02T00:00:00.000Z",
+    "emissao": "1999-06-02T00:00:00.000Z",
+    "cpf_cnpj": 50721981,
+    "codigo": 0,
+    "__v": 0,
+    "dataRecebimento": "1999-06-12T00:00:00.000Z",
+    "desconto": 0,
+    "juros": 0.001627,
+    "multa": 0.1,
+    "total": 558.135,
+    "situacao": "pago"
+  }
+}
+```
+
+## Contas a pagar
+
+### Cadastrar
+
+#### Request
+
+`POST /contas/pagar`
+
+#### :warning: É necessário passar como parâmetro o header `authorization : "Bearer ${token_do_usuário}"`:warning:
+
+| Parâmetros         | Descrição          | Tipo   |
+| ------------------ | ------------------ | ------ |
+| valor\*            | Valor da conta     | Number |
+| chaveDePagamento\* | Chave do pagamento | String |
+| pagador\*          | Nome do pagador    | String |
+| dataVencimento\*   | Data de vencimento | Date   |
+| emissao\*          | Data de emissao    | Date   |
+| cpf_cnpj\*         | CPF/CNPJ           | Number |
+
+#### Response
+
+```
+{
+  "conta": {
+    "_id": "5f63aa08bd51e435a006dc87",
+    "valor": 1000,
+    "chaveDePagamento": "chavealeatoria",
+    "pagador": "Pedro",
+    "dataVencimento": "1999-06-02T00:00:00.000Z",
+    "emissao": "1999-06-02T00:00:00.000Z",
+    "cpf_cnpj": 54828318426,
+    "codigo": 3,
+    "situacao": "pendente",
+    "__v": 0
+  }
+}
+```
+
+### Receber conta
+
+#### Request
+
+`GET/contas/pagar`
+
+#### :warning: É necessário passar como parâmetro o header `authorization : "Bearer ${token_do_usuário}"`:warning:
+
+| Parâmetros | Descrição   | Tipo   |
+| ---------- | ----------- | ------ |
+| id\*       | Id da conta | String |
+
+#### Response
+
+```
+{
+  "res": {
+    "_id": "5f63aa08bd51e435a006dc87",
+    "valor": 1000,
+    "chaveDePagamento": "chavealeatoria",
+    "pagador": "Pedro",
+    "dataVencimento": "1999-06-02T00:00:00.000Z",
+    "emissao": "1999-06-02T00:00:00.000Z",
+    "cpf_cnpj": 54828318426,
+    "codigo": 3,
+    "situacao": "pendente",
+    "__v": 0
+  }
+}
+```
+
+### Receber todas as contas
+
+#### Request
+
+`GET/todos/contas/pagar`
+
+#### :warning: É necessário passar como parâmetro o header `authorization : "Bearer ${token_do_usuário}"`:warning:
+
+#### Response
+
+```
+{
+  "res": [
+    {
+      "_id": "5f63a943bd51e435a006dc86",
+      "valor": 500,
+      "chaveDePagamento": "chavealeatoria",
+      "pagador": "João",
+      "dataVencimento": "1999-06-02T00:00:00.000Z",
+      "emissao": "1999-06-02T00:00:00.000Z",
+      "cpf_cnpj": 54828318426,
+      "codigo": 2,
+      "situacao": "pendente",
+      "__v": 0
+    },
+    {
+      "_id": "5f63aa08bd51e435a006dc87",
+      "valor": 1000,
+      "chaveDePagamento": "chavealeatoria",
+      "pagador": "Pedro",
+      "dataVencimento": "1999-06-02T00:00:00.000Z",
+      "emissao": "1999-06-02T00:00:00.000Z",
+      "cpf_cnpj": 54828318426,
+      "codigo": 3,
+      "situacao": "pendente",
+      "__v": 0
+    }
+  ]
+}
+```
+
+### Pagar uma conta (Em construção)
+
+`PUT /contas/pagar`
+
+#### Request
+
+#### :warning: É necessário passar como parâmetro o header `authorization : "Bearer ${token_do_usuário}"`:warning:
+
+| Parâmetros | Descrição   | Tipo   |
+| ---------- | ----------- | ------ |
+| id\*       | Id da conta | String |
+
+#### Response
+
+```
+{
+  "res": {
+    "_id": "5f63a943bd51e435a006dc86",
+    "valor": 500,
+    "chaveDePagamento": "chavealeatoria",
+    "pagador": "João",
+    "dataVencimento": "1999-06-02T00:00:00.000Z",
+    "emissao": "1999-06-02T00:00:00.000Z",
+    "cpf_cnpj": 54828318426,
+    "codigo": 2,
+    "situacao": "pago",
+    "__v": 0,
+    "dataPagamento": "2020-09-17T18:42:26.087Z"
+  }
+}
+```
+
+## Clientes
+
+### Cadastro
+
+#### Request
+
+`POST /clientes`
+|Parâmetros|Descrição|Tipo|
+|-|-|-|
+|nome*|Nome do cliente|String|
+|email*|Email do cliente|String|
+|contato*|Contato do cliente|String|
+|cpf_cnpj*|CPF/CNPJ|Number|
+|endereco\*|Endereço do cliente|String|
+
+#### Response
+
+```
+{
+  "ativo": {
+    "_id": "5f63aef2fbdf0a384ccb5d5b",
+    "nome": "Cliente 1",
+    "email": "cliente1@email.com",
+    "contato": "85993867483",
+    "cpf_cnpj": 74827462718,
+    "endereco": "Endereço 1",
+    "__v": 0
+  }
+}
+```
+
+### Edição de dados
+
+#### Request
+
+`PUT /clientes`
+|Parâmetros|Descrição|Tipo|
+|-|-|-|
+|id\*|Id do cliente|String|
+|nome|Nome do cliente|String|
+|email|Email do cliente|String|
+|contato|Contato do cliente|String|
+|cpf_cnpj|CPF/CNPJ|Number|
+|endereco|Endereço do cliente|String|
+
+#### Response
+
+```
+{
+  "res": {
+    "_id": "5f63aef2fbdf0a384ccb5d5b",
+    "nome": "Cliente 1",
+    "email": "cliente1@email.com",
+    "contato": "85993867483",
+    "cpf_cnpj": 74827462718,
+    "endereco": "Outro endereço!",
+    "__v": 0
+  }
+}
+```
+
+### Receber cliente
+
+`GET /clientes`
+
+#### Request
+
+| Parâmetros | Descrição     | Tipo   |
+| ---------- | ------------- | ------ |
+| id\*       | Id do cliente | String |
+
+#### Response
+
+```
+{
+  "res": {
+    "_id": "5f63aef2fbdf0a384ccb5d5b",
+    "nome": "Cliente 1",
+    "email": "cliente1@email.com",
+    "contato": "85993867483",
+    "cpf_cnpj": 74827462718,
+    "endereco": "Outro endereço!",
+    "__v": 0
+  }
+}
+```
+
+### Receber todos os clientes
+
+`GET /todos/clientes`
+
+#### Response
+
+```
+{
+  "res": [
+    {
+      "_id": "5f63aef2fbdf0a384ccb5d5b",
+      "nome": "Cliente 1",
+      "email": "cliente1@email.com",
+      "contato": "85993867483",
+      "cpf_cnpj": 74827462718,
+      "endereco": "Outro endereço!",
+      "__v": 0
+    },
+    {
+      "_id": "5f63aff8fbdf0a384ccb5d5c",
+      "nome": "Cliente 2",
+      "email": "cliente2@email.com",
+      "contato": "85993867483",
+      "cpf_cnpj": 47387427348,
+      "endereco": "Endereço 1",
+      "__v": 0
+    }
+  ]
 }
 ```
