@@ -76,4 +76,15 @@ module.exports = {
       return response.status(400).send({ error: "Falha em trocar a senha." });
     }
   },
+
+  async index(request, response) {
+    try {
+      const res = await Usuario.find();
+      return response.send({ res });
+    } catch (err) {
+      return response
+        .status(400)
+        .send({ error: "Erro ao requisitar usuários. " });
+    }
+  },
 };

@@ -6,6 +6,8 @@ const PendenciasController = require("./controllers/PendenciasController");
 const ChatController = require("./controllers/ChatController");
 const VoteController = require("./controllers/VoteController");
 const ContasReceberController = require("./controllers/ContasReceberController");
+const ContasPagarController = require("./controllers/ContasPagarController");
+const ClienteController = require("./controllers/ClienteController");
 
 const CadastroUsuarioValidation = require("./validations/Usuario/CadastroUsuarioValidation");
 const LoginValidation = require("./validations/Usuario/LoginValidation");
@@ -15,6 +17,7 @@ const UpdateAtivoValidation = require("./validations/Ativos/UpdateAtivoValidatio
 const PendenciasValidation = require("./validations/Pendencias/PendenciasValidation");
 const CadastroContasReceberValidation = require("./validations/Contas/CadastroContasReceberValidation");
 const ConfirmarContasReceberValidation = require("./validations/Contas/ConfirmarContasReceberValidation");
+const CadastroContasPagarValidation = require("./validations/Contas/CadastroContasPagarValidation");
 
 const authMiddleware = require("./middlewares/auth");
 
@@ -22,6 +25,7 @@ const authMiddleware = require("./middlewares/auth");
 routes.post("/register", CadastroUsuarioValidation, UsuarioController.create);
 routes.post("/login", LoginValidation, UsuarioController.login);
 routes.get("/user", UsuarioController.get);
+routes.get("/todos/user", UsuarioController.index);
 routes.put(
   "/user",
   MudarSenhaValidation,
@@ -68,12 +72,34 @@ routes.post(
   authMiddleware,
   ContasReceberController.create
 );
-routes.get("/contas/receber", authMiddleware, ContasReceberController.index);
+routes.get("/contas/receber", authMiddleware, ContasReceberController.get);
+routes.get(
+  "/todos/contas/receber",
+  authMiddleware,
+  ContasReceberController.index
+);
 routes.put(
-  "/contas/receber",
+  "/todos/contas/receber",
   ConfirmarContasReceberValidation,
   authMiddleware,
   ContasReceberController.complete
 );
+
+// Contas a pagar
+routes.post(
+  "/contas/pagar",
+  CadastroContasPagarValidation,
+  authMiddleware,
+  ContasPagarController.create
+);
+routes.get("/contas/pagar", authMiddleware, ContasPagarController.get);
+routes.get("/todos/contas/pagar", authMiddleware, ContasPagarController.index);
+routes.put("/contas/pagar", authMiddleware, ContasPagarController.complete);
+
+// Clientes
+routes.post("/clientes", authMiddleware, ClienteController.create);
+routes.put("/clientes", authMiddleware, ClienteController.update);
+routes.get("/clientes", authMiddleware, ClienteController.get);
+routes.get("/todos/clientes", authMiddleware, ClienteController.index);
 
 module.exports = routes;

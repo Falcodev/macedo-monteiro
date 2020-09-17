@@ -23,7 +23,7 @@ module.exports = {
     } catch (err) {
       return response
         .status(400)
-        .send({ error: "Erro ao atualizar o ativo. " });
+        .send({ error: "Erro ao atualizar os dados do cliente. " });
     }
   },
 
@@ -36,7 +36,7 @@ module.exports = {
     } catch (err) {
       return response
         .status(400)
-        .send({ error: "Erro ao requisitar o cliente. " });
+        .send({ error: "Erro ao requisitar os dados do cliente. " });
     }
   },
 

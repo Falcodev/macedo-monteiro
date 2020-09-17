@@ -35,15 +35,17 @@ const ContasPagarSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  situacao: {
-    type: String,
-    required: true,
-  },
+  situacao: String,
 });
 
 ContasPagarSchema.plugin(autoIncrement.plugin, {
   model: "ContasPagar",
   field: "codigo",
+});
+
+ContasPagarSchema.pre("save", async function (next) {
+  this.situacao = "pendente";
+  next();
 });
 
 module.exports = mongoose.model("ContasPagar", ContasPagarSchema);

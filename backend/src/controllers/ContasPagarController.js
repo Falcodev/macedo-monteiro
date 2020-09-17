@@ -1,11 +1,9 @@
-const ContasReceber = require("../models/ContasReceber");
-
-const calcularJuros = require("../utils/calcularJuros");
+const ContasPagar = require("../models/ContasPagar");
 
 module.exports = {
   async create(request, response) {
     try {
-      const conta = await ContasReceber.create(request.body);
+      const conta = await ContasPagar.create(request.body);
       return response.send({ conta });
     } catch (err) {
       return response
@@ -18,7 +16,7 @@ module.exports = {
     const { id } = request.body;
 
     try {
-      const res = await ContasReceber.findById(id);
+      const res = await ContasPagar.findById(id);
       return response.send({ res });
     } catch (err) {
       return response
@@ -29,7 +27,7 @@ module.exports = {
 
   async index(request, response) {
     try {
-      const res = await ContasReceber.find();
+      const res = await ContasPagar.find();
       return response.send({ res });
     } catch (err) {
       return response
@@ -39,32 +37,11 @@ module.exports = {
   },
 
   async complete(request, response) {
-    const {
-      id,
-      dataVencimento,
-      dataRecebimento,
-      valor,
-      desconto,
-      juros,
-      multa,
-      situacao,
-    } = request.body;
-
-    let total;
-    total =
-      valor +
-      calcularJuros(dataVencimento, dataRecebimento, situacao, valor, juros) -
-      desconto +
-      valor * multa;
-
-    const res = await ContasReceber.findByIdAndUpdate(
+    const { id } = request.body;
+    const res = await ContasPagar.findByIdAndUpdate(
       id,
       {
-        dataRecebimento,
-        desconto,
-        juros,
-        multa,
-        total,
+        dataPagamento: new Date(),
         situacao: "pago",
       },
       { new: true }

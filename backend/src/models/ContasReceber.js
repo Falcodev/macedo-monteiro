@@ -21,10 +21,7 @@ const ContasReceberSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  situacao: {
-    type: "String",
-    required: true,
-  },
+  situacao: String,
   dataRecebimento: Date,
   juros: Number,
   multa: Number,
