@@ -1,8 +1,13 @@
+const autoIncrement = require("mongoose-auto-increment");
+
 const mongoose = require("../database");
+
+autoIncrement.initialize(mongoose);
 
 // Cria um schema de ativos
 const AtivosSchema = new mongoose.Schema({
   // Geral
+  idGrupo: String,
   apelido: String,
   endereco: {
     type: String,
@@ -24,10 +29,8 @@ const AtivosSchema = new mongoose.Schema({
   titular: String,
   valor: Number,
 
-  sku: {
-    type: String,
-    required: true,
-  },
+  sku: String,
+  codigo: Number,
   inscricao: String,
   dataAquisicao: {
     type: Date,
@@ -48,5 +51,12 @@ const AtivosSchema = new mongoose.Schema({
 
   observacao: String,
 });
+
+if (!this.idGrupo && !this.sku && !this.escritura) {
+  AtivosSchema.plugin(autoIncrement.plugin, {
+    model: "Ativos",
+    field: "codigo",
+  });
+}
 
 module.exports = mongoose.model("Ativos", AtivosSchema);

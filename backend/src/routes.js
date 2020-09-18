@@ -8,6 +8,7 @@ const VoteController = require("./controllers/VoteController");
 const ContasReceberController = require("./controllers/ContasReceberController");
 const ContasPagarController = require("./controllers/ContasPagarController");
 const ClienteController = require("./controllers/ClienteController");
+const GrupoController = require("./controllers/GrupoController");
 
 const CadastroUsuarioValidation = require("./validations/Usuario/CadastroUsuarioValidation");
 const LoginValidation = require("./validations/Usuario/LoginValidation");
@@ -49,6 +50,11 @@ routes.put(
 routes.get("/ativos", authMiddleware, AtivosController.get);
 routes.delete("/ativos", authMiddleware, AtivosController.delete);
 routes.get("/todos/ativos", authMiddleware, AtivosController.index);
+
+// Grupo de Ativos
+routes.post("/grupo", authMiddleware, GrupoController.create);
+routes.get("/grupo", authMiddleware, GrupoController.get);
+routes.get("/todos/grupo", authMiddleware, GrupoController.index);
 
 // Pendências
 routes.post(

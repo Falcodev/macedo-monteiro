@@ -17,6 +17,7 @@ No presente momento, esta aplicação permite as seguintes operações nas rotas
 
 - [Usuários](#usuário) :information_desk_person:
 - [Ativos](#ativos) :house:
+- [Grupo de Ativos](#grupo-de-ativos) :file_folder:
 - [Pendências](#pendências) :clock3:
 - [Chat das Pendências](#chat-das-pendências) :speech_balloon:
 - [Contas a Receber](#contas-a-receber) :moneybag:
@@ -368,6 +369,108 @@ No presente momento, esta aplicação permite as seguintes operações nas rotas
     }
   ]
 }
+```
+
+## Grupo de Ativos
+
+### Cadastro
+
+#### Request
+
+`POST /grupo`
+
+#### :warning: É necessário passar como parâmetro o header `authorization : "Bearer ${token_do_usuário}"`:warning:
+
+| Parâmetros | Descrição     | Tipo   |
+| ---------- | ------------- | ------ |
+| nome\*     | Nome do grupo | String |
+
+#### Response
+
+```
+{
+  "conta": {
+    "_id": "5f64f785f291100f54b3b409",
+    "nome": "Grupo de Teste",
+    "ativos": [],
+    "codigo": 1,
+    "__v": 0
+  }
+}
+```
+
+### Receber grupo
+
+`GET /grupo`
+
+#### Request
+
+#### :warning: É necessário passar como parâmetro o header `authorization : "Bearer ${token_do_usuário}"`:warning:
+
+| Parâmetros | Descrição   | Tipo   |
+| ---------- | ----------- | ------ |
+| id\*       | Id do grupo | String |
+
+#### Response
+
+```
+{
+  "res": {
+    "_id": "5f64f9e22ca3ac049cd42375",
+    "nome": "Grupo de Teste",
+    "ativos": [],
+    "codigo": 1,
+    "__v": 0
+  }
+}
+```
+
+### Receber todos os grupos
+
+`GET /todos/grupo`
+
+#### Request
+
+#### :warning: É necessário passar como parâmetro o header `authorization : "Bearer ${token_do_usuário}"`:warning:
+
+#### Response
+
+```
+{
+  "res": [
+    {
+      "_id": "5f64c922c40b8b19eca1442e",
+      "nome": "Grupo 1",
+      "ativos": [
+        {
+          "_id": "5f64e6b94cf3d43cb8bc13f7",
+          "idAtivo": "5f64e6b94cf3d43cb8bc13f6",
+          "codigoAtivo": 1
+        },
+        {
+          "_id": "5f64e75956ea4f3afcc82fff",
+          "idAtivo": "5f64e75856ea4f3afcc82ffe",
+          "codigoAtivo": 2
+        }
+      ],
+      "codigo": 0,
+      "quantidade": 0,
+      "__v": 1
+    },
+    {
+      "_id": "5f64e7d356ea4f3afcc83002",
+      "nome": "Grupo 2",
+      "ativos": [
+        {
+          "_id": "5f64e7f456ea4f3afcc83004",
+          "idAtivo": "5f64e7f456ea4f3afcc83003",
+          "codigoAtivo": 1
+        }
+      ],
+      "codigo": 1,
+      "quantidade": 0,
+      "__v": 0
+    },
 ```
 
 ## Pendências

@@ -3,6 +3,7 @@ const { celebrate, Segments, Joi } = require("celebrate");
 module.exports = celebrate({
   [Segments.BODY]: Joi.object().keys({
     // Geral
+    idGrupo: Joi.string(),
     apelido: Joi.string(),
     endereco: Joi.string().required(),
     bairro: Joi.string().required(),
@@ -20,7 +21,7 @@ module.exports = celebrate({
     titular: Joi.string(),
     valor: Joi.number(),
 
-    sku: Joi.string().required(),
+    sku: Joi.string(),
     inscricao: Joi.string(),
     dataAquisicao: Joi.date(),
     valorMatricula: Joi.number(),

@@ -1,11 +1,24 @@
 const Ativos = require("../models/Ativos");
 
+const generateSKU = require("../services/skuService");
+
 module.exports = {
   async create(request, response) {
     try {
       const ativo = await Ativos.create(request.body);
-      return response.send({ ativo });
+
+      let ativoSKU;
+      if (!request.body.sku) {
+        const sku = await generateSKU(ativo);
+        ativoSKU = await Ativos.findByIdAndUpdate(
+          ativo._id,
+          { sku: sku },
+          { new: true }
+        );
+      }
+      return response.send({ ativoSKU });
     } catch (err) {
+      console.log(err);
       return response
         .status(400)
         .send({ error: "Erro no cadastro do ativo. " });
