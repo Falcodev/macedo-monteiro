@@ -7,8 +7,14 @@ module.exports = {
   async vote(request, response) {
     const { pendencia, idPessoa, voto } = request.body;
 
-    let representacao = await Usuario.findById(idPessoa);
-    representacao = representacao.representacao;
+    let usuario = await Usuario.findById(idPessoa);
+
+    if (!usuario.podeVotar)
+      return response
+        .status(400)
+        .send({ error: "Usuário não possui permição para votar " });
+
+    representacao = usuario.representacao;
 
     if (pendencia.situacao !== "pendente")
       return response.status(400).send({ error: "Erro. Pendência fechada. " });

@@ -36,9 +36,10 @@ No presente momento, esta aplicação permite as seguintes operações nas rotas
 |-|-|-|
 |nome*|Nome do usuário|String|
 |email*|Email do usuário|String|
-|senha|Senha do usuário|String|
+|senha*|Senha do usuário|String|
 |representacao*|Quanto o usuário possui da empresa|Number|
 |cotas*|Número de cotas do usuário|Number|
+|podeVotar*|Se o usuário pode ou não votar|Boolean|
 
 #### Response
 

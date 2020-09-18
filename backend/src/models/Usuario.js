@@ -31,6 +31,10 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  podeVotar: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 UserSchema.plugin(autoIncrement.plugin, { model: "Usuario", field: "codigo" });

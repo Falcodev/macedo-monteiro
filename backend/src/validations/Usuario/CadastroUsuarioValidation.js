@@ -7,5 +7,6 @@ module.exports = celebrate({
     senha: Joi.string().required(),
     representacao: Joi.number().required(),
     cotas: Joi.number().required(),
+    podeVotar: Joi.boolean().required(),
   }),
 });
