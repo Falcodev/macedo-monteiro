@@ -189,10 +189,11 @@ No presente momento, esta aplicação permite as seguintes operações nas rotas
 | cep                | CEP do ativo                        | Number                                                           |
 | municipio\*        | Município do ativo                  | String                                                           |
 | coordenadas        | Latitude e longitude do ativo       | [Number] -> `[lat, long]`                                        |
+| idGrupo            | Id do grupo que o ativo pertence    | String                                                           |
 | disponibilidade    | Disponibilidade do ativo            | String -> `("aluguel","venda","aluguel e venda","indisponivel")` |
 | titular            | Dono do imóvel perante ao requisito | String                                                           |
 | valor              | Valor do imóvel                     | Number                                                           |
-| sku\*              | SKU do imóvel                       | String                                                           |
+| sku                | SKU do imóvel                       | String                                                           |
 | inscricao          | ID do IPTU                          | String                                                           |
 | dataAquisicao      | Data de aquisição                   | Date                                                             |
 | valorMatricula     | Valor de negociação do imóvel       | Number                                                           |
