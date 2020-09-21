@@ -1,4 +1,4 @@
-const mongoose = require("../database");
+const mongoose = require("../database/mongoDB");
 
 // Cria um schema de pendencias
 const PendenciasSchema = new mongoose.Schema({

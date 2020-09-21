@@ -1,4 +1,8 @@
 const routes = require("express").Router();
+const multer = require("multer");
+
+const multerConfig = require("./config/multer");
+const uploadFile = require("./services/uploadFile");
 
 const UsuarioController = require("./controllers/UsuarioController");
 const AtivosController = require("./controllers/AtivosController");
@@ -9,6 +13,7 @@ const ContasReceberController = require("./controllers/ContasReceberController")
 const ContasPagarController = require("./controllers/ContasPagarController");
 const ClienteController = require("./controllers/ClienteController");
 const GrupoController = require("./controllers/GrupoController");
+const ResultadosController = require("./controllers/ResultadosController");
 
 const CadastroUsuarioValidation = require("./validations/Usuario/CadastroUsuarioValidation");
 const LoginValidation = require("./validations/Usuario/LoginValidation");
@@ -106,5 +111,14 @@ routes.post("/clientes", authMiddleware, ClienteController.create);
 routes.put("/clientes", authMiddleware, ClienteController.update);
 routes.get("/clientes", authMiddleware, ClienteController.get);
 routes.get("/todos/clientes", authMiddleware, ClienteController.index);
+
+// Resultados
+routes.post(
+  "/resultados",
+  multer(multerConfig).single("file"),
+  ResultadosController.create
+);
+routes.get("/resultados", authMiddleware, ResultadosController.get);
+routes.get("/todos/resultados", authMiddleware, ResultadosController.index);
 
 module.exports = routes;

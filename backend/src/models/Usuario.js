@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const autoIncrement = require("mongoose-auto-increment");
 
-const mongoose = require("../database");
+const mongoose = require("../database/mongoDB");
 
 autoIncrement.initialize(mongoose);
 

@@ -1,4 +1,4 @@
-const mongoose = require("../database");
+const mongoose = require("../database/mongoDB");
 
 // Cria o schema dos clientes
 const ClienteSchema = new mongoose.Schema({

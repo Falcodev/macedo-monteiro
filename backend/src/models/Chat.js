@@ -1,4 +1,4 @@
-const mongoose = require("../database");
+const mongoose = require("../database/mongoDB");
 
 // Cria o schema do chat
 const ChatSchema = new mongoose.Schema({
