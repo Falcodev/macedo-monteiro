@@ -15,8 +15,8 @@ const routes = [
   { path: "/", component: LoginComponent },
   { path: "/home", name: "home", component: HomeComponent },
   {
-    path: "/divulgacao",
-    name: "divulgacaoderesultado",
+    path: "/divulgacao-de-resultados",
+    name: "divulgacao-de-resultados",
     component: DivulgResultComponent
   },
   { path: "/criarnovo", name: "adcionarnovo", component: CriarNovoComponent },

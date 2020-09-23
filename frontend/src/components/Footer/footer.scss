@@ -1,0 +1,19 @@
+@import "@/assets/scss/_main";
+
+.footer-wrapper {
+  background-color: $black;
+  display: flex;
+  flex-direction: row;
+  color: $white;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+
+  img {
+    margin-right: 1rem;
+    width: 2.3rem;
+  }
+}
