@@ -1,0 +1,15 @@
+@import '@/assets/scss/_main';
+.titulo{
+    text-align: center;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 150px;
+
+    .adcionar-item{
+        padding: 15px;
+    }
+    
+}

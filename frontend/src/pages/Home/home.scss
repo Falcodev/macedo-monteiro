@@ -1,0 +1,25 @@
+@import '@/assets/scss/_main';
+
+*{
+    margin: 0;
+   
+    
+}
+.container-fluid{
+    width: 1000vh;
+}
+.rodape{
+ 
+
+    .texto{
+        bottom: 0;
+        position: fixed;
+        width: 100%;
+        text-align: center;
+        color: white;
+        background-color: $black;
+        height: 50px;
+        
+    }
+}
+
