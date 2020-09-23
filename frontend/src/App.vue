@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="layout">
     <NavbarComponent />
     <router-view></router-view>
     <FooterComponent />
@@ -19,4 +19,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>

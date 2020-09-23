@@ -1,78 +1,97 @@
 <template>
-  <div class="main">
-    <div class="container">
-      <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-secondary" @click="solicitar">
-          Solicitar Aprovação
-        </button>
-        <button type="button" class="btn btn-secondary" @click="abrir">
-          Abrir Pendencias
-        </button>
-        <button type="button" class="btn btn-secondary">Excluir</button>
+  <div class="pendencias-wrapper">
+    <router-link
+      :to="{ name: 'abrir-pendencia' }"
+      tag="button"
+      class="nova-pendencia"
+    >
+      Abrir Nova Pendência
+    </router-link>
+    <div class="table-wrapper">
+      <div class="table-header">
+        <p>Página atual: {{ paginaAtual }}</p>
+        <span>
+          <label>Quantidade </label>
+          <input type="number" v-model="tamanho" />
+        </span>
       </div>
-    </div>
-    <div class="container">
-      <form @submit.prevent="addTodo(todo)" class="form-inline">
-        <div class="form-group mx-sm-3 mb-2">
-          <input
-            type="text"
-            v-model="todo.description"
-            class="form-control"
-            placeholder="Abrir Pendencias"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary mb-2">Adcionar</button>
-      </form>
-    </div>
-    <div class="container">
-      <div class="todo-list">
-        <Todo
-          v-for="t in todos"
-          :key="t.id"
-          @toggle="toggleTodo(todo)"
-          :todo="t"
-        />
+
+      <table>
+        <tr>
+          <th>Data</th>
+          <th>Assunto</th>
+          <th>Situação</th>
+          <th>Excluir</th>
+        </tr>
+        <tr
+          v-for="pendencia in this.paginacao"
+          :key="pendencia._id"
+          class="items"
+        >
+          <td>{{ pendencia.data.slice(0, 10) }}</td>
+          <td>{{ pendencia.assunto }}</td>
+          <td>{{ pendencia.situacao }}</td>
+          <td>
+            <button class="delete">
+              <img src="../../assets/icons/trash.svg" />
+            </button>
+          </td>
+        </tr>
+      </table>
+
+      <div class="buttons">
+        <button @click="voltar">Voltar</button>
+        <button @click="avancar">Avançar</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Todo from "../../components/Todo";
-
+import api from "../../services/api";
 export default {
   name: "PendenciasComponent",
-  components: {
-    Todo
-  },
 
   data() {
     return {
-      todos: [],
-      todo: { checked: false }
+      pendencias: [],
+      tamanho: 5,
+      paginaAtual: 1
     };
   },
 
+  beforeMount() {
+    api
+      .get("todos/pendencias", {
+        headers: { authorization: `Bearer ${localStorage.getItem("token")}` }
+      })
+      .then(res => {
+        this.pendencias = res.data.res;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+
   methods: {
-    solicitar() {
-      this.$router.push({ name: "solicitar_aprovacao" });
-    },
-    abrir() {
-      this.$router.push({ name: "abrirpendencia" });
-    },
-
-    addTodo(todo) {
-      todo.id = Date.now();
-      this.todos.push(this.todo);
-      this.todo = { checked: false };
-    },
-
-    toggleTodo(todo) {
-      const index = this.todos.findIndex(item => item.id === todo.id);
-      if (index > -1) {
-        const checked = !this.todos[index].checked;
-        this.$set(this.todos, index, { ...this.todos[index], checked });
+    avancar: function() {
+      if (this.paginaAtual * this.tamanho < this.pendencias.length) {
+        this.paginaAtual++;
+        this.paginacao();
       }
+    },
+    voltar: function() {
+      if (this.paginaAtual > 1) this.paginaAtual--;
+    }
+  },
+
+  computed: {
+    paginacao: function() {
+      return this.pendencias.filter((row, index) => {
+        let start = (this.paginaAtual - 1) * this.tamanho;
+        let end = this.paginaAtual * this.tamanho;
+        if (index >= start && index < end) return true;
+      });
     }
   }
 };

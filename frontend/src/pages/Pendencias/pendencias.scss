@@ -1,19 +1,95 @@
-@import '@/assets/scss/_main';
-.container{
+@import "@/assets/scss/_main";
+
+.pendencias-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .nova-pendencia {
+    margin-top: 2rem;
+  }
+
+  table tr {
+    border: 1px solid $light-gray;
+  }
+
+  table tr th {
+    background-color: $light-blue;
+    color: $white;
+    padding: 1rem;
+  }
+
+  .items {
+    cursor: pointer;
+  }
+
+  .items:hover {
+    background-color: $lighter-blue;
+  }
+
+  .items td {
+    padding: 1rem 2rem;
+
+    button {
+      width: 100%;
+      background-color: $light-blue;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background-color: $primary-blue;
+    }
+  }
+
+  button {
+    width: 12rem;
+    padding: 0.6rem;
+    margin-left: 1rem;
+    cursor: pointer;
+    border-radius: 0.8rem;
+    background: $light-blue;
+    color: $white;
+    border: 0;
+    transition: 0.2s;
+  }
+
+  button:hover {
+    background: $lighter-blue;
+    color: $black;
+  }
+
+  button:focus {
+    outline: none;
+  }
+
+  .table-wrapper {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-   
 
-    
-    
-}
+    .table-header {
+      margin-top: 2rem;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
 
-.title-icon{
-    padding-top: 40px;
-}
-.title-content{
-    text-align: center;
-    align-items: center;
-}
+      input {
+        margin-left: 0.2rem;
+        width: 2rem;
+        border: 1px solid $black;
+        border-radius: 0.2rem;
+      }
+    }
 
+    .buttons {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: row;
+
+      button {
+        width: 6rem;
+      }
+    }
+  }
+}

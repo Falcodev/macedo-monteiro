@@ -11,30 +11,43 @@ import SolicitarAprovacaoComponent from "../pages/SolicitarAprovacao/SolicitarAp
 
 Vue.use(VueRouter);
 
-const routes = [
-  { path: "/", component: LoginComponent },
-  { path: "/home", name: "home", component: HomeComponent },
-  {
-    path: "/divulgacao-de-resultados",
-    name: "divulgacao-de-resultados",
-    component: DivulgResultComponent
-  },
-  { path: "/criarnovo", name: "adcionarnovo", component: CriarNovoComponent },
-  { path: "/pendencias", name: "pendencias", component: PendenciasComponent },
-  {
-    path: "/abrirpendencia",
-    name: "abrirpendencia",
-    component: AbrirPendenciaComponent
-  },
-  {
-    path: "/solicitaraprovacao",
-    name: "solicitar_aprovacao",
-    component: SolicitarAprovacaoComponent
-  }
-];
-
 const router = new VueRouter({
-  routes
+  mode: "history",
+  routes: [
+    { path: "/", name: "login", component: LoginComponent },
+    {
+      path: "/home",
+      name: "home",
+      component: HomeComponent,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: "/divulgacao-de-resultados",
+      name: "divulgacao-de-resultados",
+      component: DivulgResultComponent,
+      meta: { requiresAuth: true }
+    },
+    { path: "/criarnovo", name: "adcionarnovo", component: CriarNovoComponent },
+    { path: "/pendencias", name: "pendencias", component: PendenciasComponent },
+    {
+      path: "/abrir-pendencia",
+      name: "abrir-pendencia",
+      component: AbrirPendenciaComponent
+    },
+    {
+      path: "/solicitaraprovacao",
+      name: "solicitar_aprovacao",
+      component: SolicitarAprovacaoComponent
+    }
+  ]
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(rec => rec.meta.requiresAuth)) {
+    const token = localStorage.getItem("token");
+    if (!token) next({ path: "/" });
+  }
+  next();
 });
 
 export default router;
