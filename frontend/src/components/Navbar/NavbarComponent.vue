@@ -46,7 +46,7 @@
           >Arquivos</a
         >
       </li>
-      <li><router-link tag="li" :to="{ path: '/' }">Sair</router-link></li>
+      <li @click="logout">Sair</li>
     </ul>
   </div>
 </template>
@@ -62,6 +62,10 @@ export default {
       const path = event.target.value;
       this.$router.push({ path: `${path}` });
       this.selected = "";
+    },
+    logout() {
+      localStorage.removeItem("token");
+      this.$router.push({ path: "/" });
     }
   }
 };

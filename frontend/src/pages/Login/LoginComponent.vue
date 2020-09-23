@@ -1,45 +1,42 @@
 <template>
-<div class="main">
-    <div class="login">
-        <div class="content-login">
-            <header>
-              <img src="../../assets/macedo.jpg" alt="" width="200" height="100">
-            </header>
-            <div class="form">
-            <form>
-        <div class="form-group">
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Digite seu e-mail">
-        <small id="emailHelp" class="form-text text-muted">Nunca compartilharemos seu e-mail com mais ninguém.</small>
-        </div>
-        <div class="form-group">
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha">
-     </div>
-     <button type="submit" class="btn btn-primary btn-lg btn-block" @click.prevent="login">Entrar</button>
-     <a class="nav-link" href="#">Esqueceu a Senha</a>
+  <div class="login-wrapper">
+    <form class="login-form" @submit="handleLogin">
+      <img src="../../assets/macedo.jpg" />
+      <input type="email" placeholder="Email" v-model="email" />
+      <input type="password" placeholder="Senha" v-model="senha" />
+      <button type="submit">Entrar</button>
+      <p>Esqueceu sua senha?</p>
     </form>
-            </div>
-        </div>
-    </div>
-    
-</div>
+  </div>
 </template>
 
 <script>
+import api from "../../services/api";
+
 export default {
-  name: 'LoginComponent',
-
-  data(){
-      return{
-
-      }
+  name: "LoginComponent",
+  data() {
+    return {
+      email: "",
+      senha: ""
+    };
   },
 
   methods: {
-      login (){
-          this.$router.push({name:'home'})
+    async handleLogin(e) {
+      e.preventDefault();
+
+      try {
+        const data = { email: this.email, senha: this.senha };
+        const response = await api.post("login", data);
+        localStorage.setItem("token", response.data.token);
+        this.$router.push("/home");
+      } catch (err) {
+        alert("Login falhou. Tente novamente.");
       }
+    }
   }
-}
+};
 </script>
 
-<style lang="scss" src="./style.scss" scoped/>
+<style lang="scss" src="./style.scss" scoped />
