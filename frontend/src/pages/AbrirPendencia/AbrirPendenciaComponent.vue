@@ -1,64 +1,80 @@
 <template>
-  <div class="main">
-    <div class="container-sm">
-      <form>
-        <div class="form-group row">
-          <label for="inputText3" class="col-sm-2 col-form-label"
-            >Solicitante</label
-          >
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputTextl3" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputData3" class="col-sm-2 col-form-label">Data</label>
-          <div class="col-sm-10">
-            <input type="date" class="form-control" id="inputData3" />
-          </div>
-        </div>
-        <fieldset class="form-group">
-          <div class="row">
-            <legend class="col-form-label col-sm-2 pt-0">
-              Aprovação Minima
-            </legend>
-            <div class="col-sm-10">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" value="option1" />
-                <label class="form-check-label">
-                  1 Sócio
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" value="option2" />
-                <label class="form-check-label">
-                  2 Sócio
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" value="option3" />
-                <label class="form-check-label">
-                  80% dos Sócios
-                </label>
-              </div>
-            </div>
-          </div>
-        </fieldset>
-        <div class="form-group">
-          <label for="exampleFormControlTextarea1">Mensagem</label>
-          <textarea class="form-control" id="descricao" rows="3"></textarea>
-        </div>
-      </form>
-      <div class="container">
-        <button type="button" class="btn btn-primary">Criar</button>
-        <button type="button" class="btn btn-primary">Enviar</button>
-      </div>
-    </div>
+  <div class="nova-pendencia-wrapper">
+    <h1>Cadastrar Nova Pendência</h1>
+    <form type="submit" @submit="abrirPendencia">
+      <table>
+        <tr>
+          <td>Solicitante</td>
+          <td>
+            <input type="text" disabled v-model="data.solicitante" />
+          </td>
+        </tr>
+        <tr>
+          <td>Aprovação mínima</td>
+          <td>
+            <select name="aprovacao" v-model="data.opcao">
+              <option value="um">1 Sócio</option>
+              <option value="dois">2 Sócios</option>
+              <option value="oitenta">80%</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Assunto</td>
+          <td>
+            <input type="text" v-model="data.assunto" />
+          </td>
+        </tr>
+        <tr>
+          <td><h2>Descrição</h2></td>
+          <td>
+            <textarea v-model="data.chat.mensagem"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><button type="submit">Criar</button></td>
+        </tr>
+      </table>
+    </form>
   </div>
 </template>
 
 <script>
+import api from "../../services/api";
+
 export default {
-  name: "AbrirPendenciaComponent"
+  name: "AbrirPendenciaComponent",
+  data() {
+    return {
+      data: {
+        solicitante: localStorage.getItem("username"),
+        opcao: "",
+        assunto: "",
+        chat: {
+          mensagem: "",
+          autor: localStorage.getItem("username"),
+          data: new Date()
+        }
+      }
+    };
+  },
+  methods: {
+    async abrirPendencia(e) {
+      e.preventDefault();
+      try {
+        const response = await api.post("pendencias", this.data, {
+          headers: { authorization: `Bearer ${localStorage.getItem("token")}` }
+        });
+        console.log(response.data);
+        //const id = response.data;
+        alert("Pendência criada com sucesso!");
+      } catch (err) {
+        alert("Erro ao criar pendência");
+        console.log(err);
+      }
+    }
+  }
 };
 </script>
 

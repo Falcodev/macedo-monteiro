@@ -7,6 +7,7 @@ import DivulgResultComponent from "../pages/DivulgacaoResultado/DivulgResultComp
 import CriarNovoComponent from "../pages/CriarNovo/CriarNovoComponent";
 import PendenciasComponent from "../pages/Pendencias/PendenciasComponent";
 import AbrirPendenciaComponent from "../pages/AbrirPendencia/AbrirPendenciaComponent";
+import PendenciaEspecificaComponent from "../pages/PendenciaEspecifica/PendenciaEspecificaComponent";
 import SolicitarAprovacaoComponent from "../pages/SolicitarAprovacao/SolicitarAprovacaoComponent";
 
 Vue.use(VueRouter);
@@ -33,6 +34,12 @@ const router = new VueRouter({
       path: "/abrir-pendencia",
       name: "abrir-pendencia",
       component: AbrirPendenciaComponent
+    },
+    {
+      path: "/pendencia/:id",
+      name: "pendencia-especifica",
+      component: PendenciaEspecificaComponent,
+      props: true
     },
     {
       path: "/solicitaraprovacao",

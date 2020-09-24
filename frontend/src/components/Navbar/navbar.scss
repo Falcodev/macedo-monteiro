@@ -31,9 +31,15 @@
     list-style-type: none;
     font-size: 18px;
     text-decoration: none;
-    padding: 0 10px;
+    padding: 0 1rem;
     cursor: pointer;
     user-select: none;
+  }
+
+  li:hover,
+  a:hover,
+  select:hover {
+    color: $lighter-blue;
   }
 
   select {

@@ -10,32 +10,23 @@
     <div class="table-wrapper">
       <div class="table-header">
         <p>Página atual: {{ paginaAtual }}</p>
-        <span>
-          <label>Quantidade </label>
-          <input type="number" v-model="tamanho" />
-        </span>
       </div>
 
       <table>
         <tr>
-          <th>Data</th>
+          <th>Solicitante</th>
           <th>Assunto</th>
           <th>Situação</th>
-          <th>Excluir</th>
         </tr>
         <tr
           v-for="pendencia in this.paginacao"
           :key="pendencia._id"
           class="items"
+          @click="goToPendencia(pendencia._id)"
         >
-          <td>{{ pendencia.data.slice(0, 10) }}</td>
+          <td>{{ pendencia.solicitante }}</td>
           <td>{{ pendencia.assunto }}</td>
           <td>{{ pendencia.situacao }}</td>
-          <td>
-            <button class="delete">
-              <img src="../../assets/icons/trash.svg" />
-            </button>
-          </td>
         </tr>
       </table>
 
@@ -66,7 +57,7 @@ export default {
         headers: { authorization: `Bearer ${localStorage.getItem("token")}` }
       })
       .then(res => {
-        this.pendencias = res.data.res;
+        this.pendencias = res.data.res.reverse();
       })
       .catch(err => {
         console.log(err);
@@ -82,6 +73,9 @@ export default {
     },
     voltar: function() {
       if (this.paginaAtual > 1) this.paginaAtual--;
+    },
+    goToPendencia(id) {
+      this.$router.push({ name: "pendencia-especifica", params: { id: id } });
     }
   },
 

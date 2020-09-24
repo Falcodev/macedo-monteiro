@@ -73,13 +73,6 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-
-      input {
-        margin-left: 0.2rem;
-        width: 2rem;
-        border: 1px solid $black;
-        border-radius: 0.2rem;
-      }
     }
 
     .buttons {

@@ -30,6 +30,8 @@ export default {
         const data = { email: this.email, senha: this.senha };
         const response = await api.post("login", data);
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("userId", response.data.user._id);
+        localStorage.setItem("username", response.data.user.nome);
         this.$router.push("/home");
       } catch (err) {
         alert("Login falhou. Tente novamente.");
