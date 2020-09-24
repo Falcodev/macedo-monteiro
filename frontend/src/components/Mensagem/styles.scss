@@ -1,0 +1,26 @@
+@import "@/assets/scss/_main";
+
+.mensagem-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+  border-radius: 0.8rem;
+  width: 100%;
+  padding: 2rem;
+
+  .mensagem-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .mensagem-mensagem {
+    background-color: $light-gray;
+    padding: 1rem 2rem 2rem 2rem;
+    border-radius: 0.8rem;
+  }
+}
+
+.wrapper-blue {
+  background-color: #c5cbe8;
+}
