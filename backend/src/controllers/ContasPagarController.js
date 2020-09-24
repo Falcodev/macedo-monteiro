@@ -13,7 +13,7 @@ module.exports = {
   },
 
   async get(request, response) {
-    const { id } = request.body;
+    const { id } = request.params;
 
     try {
       const res = await ContasPagar.findById(id);

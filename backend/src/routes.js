@@ -52,13 +52,13 @@ routes.put(
   authMiddleware,
   AtivosController.update
 );
-routes.get("/ativos", authMiddleware, AtivosController.get);
+routes.get("/ativos/:id", authMiddleware, AtivosController.get);
 routes.delete("/ativos", authMiddleware, AtivosController.delete);
 routes.get("/todos/ativos", authMiddleware, AtivosController.index);
 
 // Grupo de Ativos
 routes.post("/grupo", authMiddleware, GrupoController.create);
-routes.get("/grupo", authMiddleware, GrupoController.get);
+routes.get("/grupo/:id", authMiddleware, GrupoController.get);
 routes.get("/todos/grupo", authMiddleware, GrupoController.index);
 
 // Pendências
@@ -69,7 +69,7 @@ routes.post(
   PendenciasController.create
 );
 routes.get("/todos/pendencias", authMiddleware, PendenciasController.index);
-routes.get("/pendencias", authMiddleware, PendenciasController.get);
+routes.get("/pendencias/:id", authMiddleware, PendenciasController.get);
 routes.put("/pendencias", authMiddleware, VoteController.vote);
 
 // Chat
@@ -82,7 +82,7 @@ routes.post(
   authMiddleware,
   ContasReceberController.create
 );
-routes.get("/contas/receber", authMiddleware, ContasReceberController.get);
+routes.get("/contas/receber/:id", authMiddleware, ContasReceberController.get);
 routes.get(
   "/todos/contas/receber",
   authMiddleware,
@@ -102,14 +102,14 @@ routes.post(
   authMiddleware,
   ContasPagarController.create
 );
-routes.get("/contas/pagar", authMiddleware, ContasPagarController.get);
+routes.get("/contas/pagar/:id", authMiddleware, ContasPagarController.get);
 routes.get("/todos/contas/pagar", authMiddleware, ContasPagarController.index);
 routes.put("/contas/pagar", authMiddleware, ContasPagarController.complete);
 
 // Clientes
 routes.post("/clientes", authMiddleware, ClienteController.create);
 routes.put("/clientes", authMiddleware, ClienteController.update);
-routes.get("/clientes", authMiddleware, ClienteController.get);
+routes.get("/clientes/:id", authMiddleware, ClienteController.get);
 routes.get("/todos/clientes", authMiddleware, ClienteController.index);
 
 // Resultados
@@ -118,7 +118,7 @@ routes.post(
   multer(multerConfig).single("file"),
   ResultadosController.create
 );
-routes.get("/resultados", authMiddleware, ResultadosController.get);
+routes.get("/resultados/:id", authMiddleware, ResultadosController.get);
 routes.get("/todos/resultados", authMiddleware, ResultadosController.index);
 
 module.exports = routes;

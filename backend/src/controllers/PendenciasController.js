@@ -24,13 +24,14 @@ module.exports = {
   },
 
   async get(request, response) {
-    const { id } = request.body;
+    const { id } = request.params;
 
     try {
       const pendencia = await Pendencias.findById(id);
       const chat = await Chat.find({ idPendencia: id });
       return response.send({ pendencia, chat });
     } catch (err) {
+      console.log(err);
       return response
         .status(400)
         .send({ error: "Erro ao requisitar a pendência. " });

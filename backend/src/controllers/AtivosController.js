@@ -18,7 +18,6 @@ module.exports = {
       }
       return response.send({ ativoSKU });
     } catch (err) {
-      console.log(err);
       return response
         .status(400)
         .send({ error: "Erro no cadastro do ativo. " });
@@ -41,7 +40,7 @@ module.exports = {
   },
 
   async get(request, response) {
-    const { id } = request.body;
+    const { id } = request.params;
 
     try {
       const res = await Ativos.findById(id);
