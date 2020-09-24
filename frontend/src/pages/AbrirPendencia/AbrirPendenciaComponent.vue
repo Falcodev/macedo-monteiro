@@ -67,7 +67,6 @@ export default {
           headers: { authorization: `Bearer ${localStorage.getItem("token")}` }
         });
         console.log(response.data);
-        //const id = response.data;
         alert("Pendência criada com sucesso!");
       } catch (err) {
         alert("Erro ao criar pendência");

@@ -3,10 +3,11 @@
 .mensagem-wrapper {
   display: flex;
   flex-direction: column;
-  margin: 2rem;
+  margin: 2rem 12rem;
   border-radius: 0.8rem;
-  width: 100%;
-  padding: 2rem;
+  padding: 1rem;
+  background-color: $light-gray;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.2);
 
   .mensagem-header {
     display: flex;
@@ -15,12 +16,21 @@
   }
 
   .mensagem-mensagem {
-    background-color: $light-gray;
+    background-color: $message-ligher-gray;
     padding: 1rem 2rem 2rem 2rem;
     border-radius: 0.8rem;
+  }
+
+  .mensagem-nome {
+    display: flex;
+    flex-direction: row;
   }
 }
 
 .wrapper-blue {
-  background-color: #c5cbe8;
+  background-color: $message-blue;
+}
+
+.mensagem-blue {
+  background-color: $message-lighter-blue !important;
 }
