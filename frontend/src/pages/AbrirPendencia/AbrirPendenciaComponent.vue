@@ -66,7 +66,10 @@ export default {
         const response = await api.post("pendencias", this.data, {
           headers: { authorization: `Bearer ${localStorage.getItem("token")}` }
         });
-        console.log(response.data);
+        this.$router.push({
+          name: "pendencia-especifica",
+          params: { id: response.data.res._id }
+        });
         alert("Pendência criada com sucesso!");
       } catch (err) {
         alert("Erro ao criar pendência");

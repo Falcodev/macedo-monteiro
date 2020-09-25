@@ -91,7 +91,6 @@ export default {
     },
 
     setVoto(voto) {
-      console.log(voto);
       this.voto = voto;
       this.votar();
     },
