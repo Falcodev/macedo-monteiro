@@ -26,6 +26,30 @@
     flex-direction: row;
   }
 
+  .mensagem-pdf {
+    button {
+      width: 12rem;
+      padding: 0.6rem;
+      margin-left: 1rem;
+      cursor: pointer;
+      border-radius: 0.8rem;
+      background: $light-blue;
+      color: $white;
+      border: 0;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: $message-lighter-blue;
+      border: 0.1rem solid $primary-blue;
+      color: $primary-blue;
+    }
+
+    button:focus {
+      outline: none;
+    }
+  }
+
   .mensagem-votos {
     display: flex;
     flex-direction: row;

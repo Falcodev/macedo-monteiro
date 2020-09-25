@@ -36,6 +36,13 @@
     <p class="mensagem-mensagem" v-bind:class="{ 'mensagem-blue': this.main }">
       {{ this.mensagem.mensagem }}
     </p>
+
+    <div
+      class="mensagem-pdf"
+      v-if="this.main && this.dados.situacao == 'aprovado'"
+    >
+      <button @click="goToPDF(dados._id)">Gerar PDF</button>
+    </div>
   </div>
 </template>
 
@@ -47,6 +54,11 @@ export default {
     return {
       main: ""
     };
+  },
+  methods: {
+    goToPDF(id) {
+      this.$router.push({ name: "pendencia-aprovada", params: { id: id } });
+    }
   },
   beforeMount() {
     if (this.dados) this.main = true;

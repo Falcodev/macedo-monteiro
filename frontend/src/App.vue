@@ -1,15 +1,29 @@
 <template>
   <div id="app" class="layout">
-    <NavbarComponent />
+    <div
+      class="showComponent"
+      v-if="
+        this.$route.name != 'login' && this.$route.name != 'pendencia-aprovada'
+      "
+    >
+      <NavbarComponent />
+    </div>
+
     <router-view></router-view>
-    <FooterComponent />
+    <div
+      class="showComponent"
+      v-if="
+        this.$route.name != 'login' && this.$route.name != 'pendencia-aprovada'
+      "
+    >
+      <FooterComponent />
+    </div>
   </div>
 </template>
 
 <script>
-import NavbarComponent from "./components/Navbar/NavbarComponent";
-import FooterComponent from "./components/Footer/FooterComponent";
-
+import NavbarComponent from "./components/Navbar/NavbarComponent.vue";
+import FooterComponent from "./components/Footer/FooterComponent.vue";
 export default {
   name: "App",
   components: {
@@ -25,5 +39,9 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+}
+
+.showComponent {
+  width: 100%;
 }
 </style>

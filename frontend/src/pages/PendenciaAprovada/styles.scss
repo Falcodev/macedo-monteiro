@@ -1,0 +1,36 @@
+@import "@/assets/scss/_main";
+
+#content {
+  height: 29.7cm;
+  width: 21cm;
+  padding: 6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-image: url("../../assets/pdf_model.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+}
+
+button {
+  width: 100%;
+  padding: 0.6rem;
+  margin: 2rem;
+  cursor: pointer;
+  border-radius: 0.8rem;
+  background: $light-blue;
+  color: $white;
+  border: 0;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: $white;
+  border: 0.1rem solid $primary-blue;
+  color: $primary-blue;
+}
+
+button:focus {
+  outline: none;
+}
