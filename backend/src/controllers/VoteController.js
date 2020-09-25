@@ -22,14 +22,7 @@ module.exports = {
     const votos = pendencia.votos;
     const existe = votos.find((v) => v.idPessoa == idPessoa);
     if (existe) {
-      if (existe.voto == voto)
-        return response
-          .status(400)
-          .send({ error: "Erro. Voto igual ao anterior. " });
-      else {
-        const res = await Pendencias.findById(pendencia.id);
-        return response.send({ res });
-      }
+      return response.status(400).send({ error: "Erro. Usuário já votou. " });
     }
 
     const funcao = VoteService[pendencia.opcao];

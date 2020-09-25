@@ -1,11 +1,18 @@
 const Pendencias = require("../models/Pendencias");
+const Usuario = require("../models/Usuario");
 
 const servicos = {
   async votar(id, idPessoa, voto, representacao) {
     try {
+      const usuario = await Usuario.findById(idPessoa);
+
       const res = await Pendencias.findByIdAndUpdate(
         id,
-        { $push: { votos: { idPessoa, voto, representacao } } },
+        {
+          $push: {
+            votos: { idPessoa, nomePessoa: usuario.nome, voto, representacao },
+          },
+        },
         { new: true }
       );
       return res;

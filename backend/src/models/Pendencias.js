@@ -18,6 +18,7 @@ const PendenciasSchema = new mongoose.Schema({
   votos: [
     {
       idPessoa: { type: String, required: true },
+      nomePessoa: { type: String },
       voto: { type: String, required: true },
       representacao: { type: Number, required: true },
     },
