@@ -6,6 +6,12 @@
       <Mensagem :mensagem="item" />
     </div>
 
+    <div class="voto">
+      Votar
+      <button class="aprovar" @click="setVoto('aprovado')">Aprovar</button>
+      <button class="recusar" @click="setVoto('reprovado')">Recusar</button>
+    </div>
+
     <form @submit="mandarMensagem">
       <textarea v-model="mensagem"></textarea>
       <button type="submit">
@@ -30,7 +36,8 @@ export default {
       pendencia: [],
       chat: [],
       pendenciaOpt: [],
-      mensagem: ""
+      mensagem: "",
+      voto: ""
     };
   },
 
@@ -61,6 +68,34 @@ export default {
         alert("Ocorreu um erro ao mandar a mensagem.");
       }
     },
+
+    votar() {
+      const data = {
+        pendencia: this.pendencia,
+        idPessoa: localStorage.getItem("userId"),
+        voto: this.voto
+      };
+      api
+        .put("pendencias", data, {
+          headers: { authorization: `Bearer ${localStorage.getItem("token")}` }
+        })
+        .then(res => {
+          alert("Voto feito com sucesso!");
+          console.log(res);
+          this.getInfo();
+        })
+        .catch(err => {
+          alert("Erro ao votar");
+          console.log(err);
+        });
+    },
+
+    setVoto(voto) {
+      console.log(voto);
+      this.voto = voto;
+      this.votar();
+    },
+
     getInfo() {
       api
         .get(

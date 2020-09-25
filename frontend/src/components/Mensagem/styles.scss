@@ -25,6 +25,22 @@
     display: flex;
     flex-direction: row;
   }
+
+  .mensagem-votos {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .votos {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 2rem;
+
+      .voto {
+        margin-left: 2rem;
+      }
+    }
+  }
 }
 
 .wrapper-blue {

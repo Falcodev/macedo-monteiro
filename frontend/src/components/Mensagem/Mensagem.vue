@@ -17,6 +17,22 @@
       <p v-if="this.main"><b>Aprovação mínima: </b> {{ this.dados.opcao }}</p>
       <p v-if="this.main"><b>Situação: </b> {{ this.dados.situacao }}</p>
     </div>
+
+    <div class="mensagem-votos" v-if="this.main">
+      <p><b>Assunto: </b> {{ this.dados.assunto }}</p>
+      <div class="votos">
+        <div class="voto" v-for="voto in this.dados.votos" :key="voto._id">
+          {{ voto.nomePessoa }}
+          <div v-if="voto.voto == 'aprovado'">
+            <img src="../../assets/icons/check.svg" />
+          </div>
+          <div v-else>
+            <img src="../../assets/icons/x.svg" />
+          </div>
+        </div>
+      </div>
+    </div>
+
     <p class="mensagem-mensagem" v-bind:class="{ 'mensagem-blue': this.main }">
       {{ this.mensagem.mensagem }}
     </p>
